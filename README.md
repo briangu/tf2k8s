@@ -19,28 +19,28 @@ Setup your configs in terraform.tfvars.  Namely, you'll need to specify
 
 ```
 ssh_private_key_path = "~/.ssh/id_ed25519"
-ssh_user = "brian"
+ssh_user = "ubuntu"
 ```
 
 Choose your control plane and worker servers.
 
 ```
 controlplane_servers = {
-    parallac-1 = "192.168.88.250"
-    parallac-2 = "192.168.88.246"
-    parallac-3 = "192.168.88.248"
-    parallac-4 = "192.168.88.247"
-    parallac-5 = "192.168.88.249"
+    homelab-1 = "192.168.88.250"
+    homelab-2 = "192.168.88.246"
+    homelab-3 = "192.168.88.248"
 }
 
 kubelet_servers = {
-    "parallac-6" = "192.168.88.245",
-    "parallac-7" = "192.168.88.244",
-    "parallac-8" = "192.168.88.243",
-    "parallac-9" = "192.168.88.242",
+    homelab-4 = "192.168.88.247"
+    homelab-5 = "192.168.88.249"
+    homelab-6 = "192.168.88.245",
+    homelab-7 = "192.168.88.244",
+    homelab-8 = "192.168.88.243",
+    homelab-9 = "192.168.88.242",
 }
 
-cluster_name         = "parallac"
+cluster_name         = "homelab"
 ```
 
 You may want to adjust which server is your API server loadbalancer.  In the simple case, we let the first control plane node also be the load balancer:
@@ -87,7 +87,7 @@ There are triggers in the terraform which try their best to detect what needs to
 For example, if you wanted to redeploy a specific kubelet you could do the following:
 
 ```bash
-terraform taint 'null_resource.provision_kubelets["parallac-7"]'
+terraform taint 'null_resource.provision_kubelets["homelab-7"]'
 terraform apply
 ```
 
