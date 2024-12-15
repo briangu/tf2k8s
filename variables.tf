@@ -29,6 +29,7 @@ variable "kubernetes_version" {
 variable "cni_plugins_version" {
   type    = string
   description = "The version of the CNI plugins to install from https://github.com/containernetworking/plugins/releases/download/"
+  default = "v1.5.0"
 }
 
 variable "api_loadbalancer_host" {
@@ -45,6 +46,7 @@ variable "api_loadbalancer_port" {
 variable "cluster_dns_ip" {
   type    = string
   description = "value for the cluster DNS"
+  default = "10.96.0.10"
 }
 
 variable "upstream_dns_server" {
@@ -53,18 +55,21 @@ variable "upstream_dns_server" {
 }
 
 variable "cluster_pod_cidr" {
-    type    = string
-    description = "CIDR from which to assign pod IPs"
+  type    = string
+  description = "CIDR from which to assign pod IPs"
+  default = "10.244.0.0/16"
 }
 
 variable "cluster_service_cidr" {
-    type    = string
-    description = "CIDR from which to assign service IPs"
+  type    = string
+  description = "CIDR from which to assign service IPs"
+  default = "10.96.0.0/12"
 }
 
 variable "cluster_dns_domain" {
   type    = string
   description = "value for the cluster DNS domain"
+  default = "cluster.local"
 }
 
 variable "cluster_name" {
@@ -93,4 +98,5 @@ variable "random_node_sleep" {
 variable "coredns_version" {
   type    = string
   description = "The version of CoreDNS to install"
+  default = "1.9.4"
 }
