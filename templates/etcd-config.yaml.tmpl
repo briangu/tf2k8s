@@ -1,0 +1,21 @@
+name: "${peername}"
+data-dir: /var/lib/etcd
+listen-client-urls: https://0.0.0.0:2379
+advertise-client-urls: ${advertise_client_url}
+listen-peer-urls: ${listen_peer_url}
+initial-advertise-peer-urls: ${initial_advertise_peer_url}
+initial-cluster-token: "${cluster_name}"
+initial-cluster: "${initial_cluster}"
+initial-cluster-state: "${cluster_state}"
+
+client-transport-security:
+  cert-file: /etc/kubernetes/pki/etcd/server.crt
+  key-file: /etc/kubernetes/pki/etcd/server.key
+  client-cert-auth: true
+  trusted-ca-file: /etc/kubernetes/pki/etcd/ca.crt
+
+peer-transport-security:
+  cert-file: /etc/kubernetes/pki/etcd/peer.crt
+  key-file: /etc/kubernetes/pki/etcd/peer.key
+  client-cert-auth: true
+  trusted-ca-file: /etc/kubernetes/pki/etcd/ca.crt

@@ -1,0 +1,29 @@
+[Unit]
+Description=Kubernetes API Server
+After=network.target etcd.service
+
+[Service]
+ExecStart=/usr/local/bin/kube-apiserver \
+  --advertise-address=0.0.0.0 \
+  --allow-privileged=true \
+  --authorization-mode=Node,RBAC \
+  --client-ca-file=/etc/kubernetes/pki/ca.crt \
+  --tls-cert-file=/etc/kubernetes/pki/apiserver.crt \
+  --tls-private-key-file=/etc/kubernetes/pki/apiserver.key \
+  --etcd-servers=${etcd_servers} \
+  --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt \
+  --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key \
+  --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt \
+  --service-cluster-ip-range=${service_cluster_ip_range} \
+  --enable-admission-plugins=NodeRestriction \
+  --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt \
+  --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key \
+  --service-account-issuer=https://kubernetes.default.svc.cluster.local \
+  --service-account-signing-key-file=/etc/kubernetes/pki/sa.key \
+  --service-account-key-file=/etc/kubernetes/pki/sa.pub
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

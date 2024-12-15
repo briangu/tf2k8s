@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kube-proxy-kubeconfig
+  namespace: kube-system
+data:
+  kubeconfig:  "${base64encode(kubeconfig)}"
+type: Opaque
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+data:
+  config.conf: |
+    apiVersion: kubeproxy.config.k8s.io/v1alpha1
+    kind: KubeProxyConfiguration
+    mode: "iptables"
+    clusterCIDR: "${cluster_pod_cidr}"
+    clientConnection:
+      kubeconfig: /var/lib/kube-proxy-kubeconfig
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+  labels:
+    k8s-app: kube-proxy
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-proxy
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-proxy
+    spec:
+      # Runs as a critical system component
+      priorityClassName: system-node-critical
+      serviceAccountName: kube-proxy
+      hostNetwork: true
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      containers:
+      - name: kube-proxy
+        image: registry.k8s.io/kube-proxy:${kubernetes_version}
+        command:
+          - /usr/local/bin/kube-proxy
+          - --config=/var/lib/kube-proxy/config.conf
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: kube-proxy-config
+            mountPath: /var/lib/kube-proxy
+          - name: kubeconfig
+            mountPath: /var/lib/kube-proxy-kubeconfig
+            subPath: kubeconfig
+          - name: xtables-lock
+            mountPath: /run/xtables.lock
+            readOnly: false
+      volumes:
+        - name: kube-proxy-config
+          configMap:
+            name: kube-proxy
+            items:
+              - key: config.conf
+                path: config.conf
+        - name: kubeconfig
+          secret:
+            secretName: kube-proxy-kubeconfig
+        - name: xtables-lock
+          hostPath:
+            path: /run/xtables.lock
+            type: FileOrCreate

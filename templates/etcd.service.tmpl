@@ -1,0 +1,12 @@
+[Unit]
+Description=etcd
+After=network.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/etcd --config-file=/etc/etcd/etcd.yaml
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

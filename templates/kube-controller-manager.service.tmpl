@@ -1,0 +1,23 @@
+[Unit]
+Description=Kubernetes Controller Manager
+After=network.target kube-apiserver.service
+
+[Service]
+ExecStart=/usr/local/bin/kube-controller-manager \
+  --leader-elect=true \
+  --allocate-node-cidrs=true \
+  --cluster-cidr=${cluster_pod_cidr} \
+  --node-cidr-mask-size=24 \
+  --configure-cloud-routes=false \
+  --kubeconfig=/etc/kubernetes/controller-manager.kubeconfig \
+  --cluster-name=${cluster_name} \
+  --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt \
+  --cluster-signing-key-file=/etc/kubernetes/pki/ca.key \
+  --root-ca-file=/etc/kubernetes/pki/ca.crt \
+  --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
