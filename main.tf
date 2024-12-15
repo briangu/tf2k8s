@@ -105,9 +105,9 @@ resource "tls_cert_request" "apiserver_csr" {
 }
 
 resource "tls_locally_signed_cert" "apiserver_cert" {
-  cert_request_pem   = tls_cert_request.apiserver_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.apiserver_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -137,9 +137,9 @@ resource "tls_cert_request" "controller_manager_csr" {
 }
 
 resource "tls_locally_signed_cert" "controller_manager_cert" {
-  cert_request_pem   = tls_cert_request.controller_manager_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.controller_manager_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -170,9 +170,9 @@ resource "tls_cert_request" "scheduler_csr" {
 }
 
 resource "tls_locally_signed_cert" "scheduler_cert" {
-  cert_request_pem   = tls_cert_request.scheduler_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.scheduler_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -202,9 +202,9 @@ resource "tls_cert_request" "apiserver_kubelet_client_csr" {
 }
 
 resource "tls_locally_signed_cert" "apiserver_kubelet_client_cert" {
-  cert_request_pem   = tls_cert_request.apiserver_kubelet_client_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.apiserver_kubelet_client_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -233,9 +233,9 @@ resource "tls_cert_request" "apiserver_etcd_client_csr" {
 }
 
 resource "tls_locally_signed_cert" "apiserver_etcd_client_cert" {
-  cert_request_pem   = tls_cert_request.apiserver_etcd_client_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.etcd_ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.etcd_ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.apiserver_etcd_client_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.etcd_ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.etcd_ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -268,9 +268,9 @@ resource "tls_cert_request" "etcd_server_csr" {
 }
 
 resource "tls_locally_signed_cert" "etcd_server_cert" {
-  cert_request_pem   = tls_cert_request.etcd_server_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.etcd_ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.etcd_ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.etcd_server_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.etcd_ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.etcd_ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -294,7 +294,7 @@ resource "tls_private_key" "etcd_peer_key" {
 resource "tls_cert_request" "etcd_peer_csr" {
   private_key_pem = tls_private_key.etcd_peer_key.private_key_pem
   subject {
-    common_name = "etcd-peer"
+    common_name  = "etcd-peer"
     organization = "etcd"
   }
 
@@ -303,9 +303,9 @@ resource "tls_cert_request" "etcd_peer_csr" {
 }
 
 resource "tls_locally_signed_cert" "etcd_peer_cert" {
-  cert_request_pem   = tls_cert_request.etcd_peer_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.etcd_ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.etcd_ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.etcd_peer_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.etcd_ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.etcd_ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -335,9 +335,9 @@ resource "tls_cert_request" "etcd_healthcheck_client_csr" {
 }
 
 resource "tls_locally_signed_cert" "etcd_healthcheck_client_cert" {
-  cert_request_pem   = tls_cert_request.etcd_healthcheck_client_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.etcd_ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.etcd_ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.etcd_healthcheck_client_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.etcd_ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.etcd_ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -370,9 +370,9 @@ resource "tls_cert_request" "kubelet_server_csr" {
 }
 
 resource "tls_locally_signed_cert" "kubelet_server_cert" {
-  cert_request_pem   = tls_cert_request.kubelet_server_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.kubelet_server_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -401,9 +401,9 @@ resource "tls_cert_request" "admin_csr" {
 }
 
 resource "tls_locally_signed_cert" "admin_cert" {
-  cert_request_pem   = tls_cert_request.admin_csr.cert_request_pem
-  ca_cert_pem        = tls_self_signed_cert.ca_cert.cert_pem
-  ca_private_key_pem = tls_private_key.ca_key.private_key_pem
+  cert_request_pem      = tls_cert_request.admin_csr.cert_request_pem
+  ca_cert_pem           = tls_self_signed_cert.ca_cert.cert_pem
+  ca_private_key_pem    = tls_private_key.ca_key.private_key_pem
   validity_period_hours = 8760
   early_renewal_hours   = 720
   allowed_uses = [
@@ -603,8 +603,8 @@ resource "local_file" "admin_kubeconfig" {
 
 resource "null_resource" "download_k8s_binaries" {
   triggers = {
-    kubernetes_version  = var.kubernetes_version
-    etcd_version        = var.etcd_version
+    kubernetes_version = var.kubernetes_version
+    etcd_version       = var.etcd_version
   }
 
   provisioner "local-exec" {
@@ -691,33 +691,33 @@ resource "null_resource" "provision_control_plane" {
   ]
 
   triggers = {
-    etcd_cluster_state                   = var.etcd_cluster_state
-    etcd_version                         = var.etcd_version
-    kubernetes_version                   = var.kubernetes_version
+    etcd_cluster_state = var.etcd_cluster_state
+    etcd_version       = var.etcd_version
+    kubernetes_version = var.kubernetes_version
 
-    ca_cert_hash                         = sha256(tls_self_signed_cert.ca_cert.cert_pem)
-    etcd_server_cert_hash                = sha256(tls_locally_signed_cert.etcd_server_cert.cert_pem)
-    etcd_peer_cert_hash                  = sha256(tls_locally_signed_cert.etcd_peer_cert.cert_pem)
-    etcd_healthcheck_client_cert_hash    = sha256(tls_locally_signed_cert.etcd_healthcheck_client_cert.cert_pem)
-    kube_apiserver_cert_hash             = sha256(tls_locally_signed_cert.apiserver_cert.cert_pem)
+    ca_cert_hash                            = sha256(tls_self_signed_cert.ca_cert.cert_pem)
+    etcd_server_cert_hash                   = sha256(tls_locally_signed_cert.etcd_server_cert.cert_pem)
+    etcd_peer_cert_hash                     = sha256(tls_locally_signed_cert.etcd_peer_cert.cert_pem)
+    etcd_healthcheck_client_cert_hash       = sha256(tls_locally_signed_cert.etcd_healthcheck_client_cert.cert_pem)
+    kube_apiserver_cert_hash                = sha256(tls_locally_signed_cert.apiserver_cert.cert_pem)
     kube_apiserver_kubelet_client_cert_hash = sha256(tls_locally_signed_cert.apiserver_kubelet_client_cert.cert_pem)
-    kube_apiserver_kubelet_client_key_hash = sha256(tls_private_key.apiserver_kubelet_client_key.private_key_pem)
-    kube_apiserver_etcd_client_cert_hash = sha256(tls_locally_signed_cert.apiserver_etcd_client_cert.cert_pem)
-    kube_apiserver_etcd_client_key_hash  = sha256(tls_private_key.apiserver_etcd_client_key.private_key_pem)
-    sa_key_hash                          = sha256(tls_private_key.sa_key.private_key_pem)
-    sa_pub_hash                          = sha256(tls_private_key.sa_key.public_key_pem)
+    kube_apiserver_kubelet_client_key_hash  = sha256(tls_private_key.apiserver_kubelet_client_key.private_key_pem)
+    kube_apiserver_etcd_client_cert_hash    = sha256(tls_locally_signed_cert.apiserver_etcd_client_cert.cert_pem)
+    kube_apiserver_etcd_client_key_hash     = sha256(tls_private_key.apiserver_etcd_client_key.private_key_pem)
+    sa_key_hash                             = sha256(tls_private_key.sa_key.private_key_pem)
+    sa_pub_hash                             = sha256(tls_private_key.sa_key.public_key_pem)
 
-    etcd_service_hash                    = sha256(local.etcd_service)
-    etcd_config_tmpl_hash                = filesha256("${path.module}/templates/etcd-config.yaml.tmpl")
+    etcd_service_hash     = sha256(local.etcd_service)
+    etcd_config_tmpl_hash = filesha256("${path.module}/templates/etcd-config.yaml.tmpl")
 
-    kube_apiserver_service_hash          = sha256(local.kube_apiserver_service)
-    kube_apiserver_config_hash           = sha256(local.kube_apiserver_config)
+    kube_apiserver_service_hash = sha256(local.kube_apiserver_service)
+    kube_apiserver_config_hash  = sha256(local.kube_apiserver_config)
 
     kube_controller_manager_service_hash    = sha256(local.kube_controller_manager_service)
     kube_controller_manager_kubeconfig_hash = sha256(local.kube_controller_manager_kubeconfig)
 
-    kube_scheduler_service_hash          = sha256(local.kube_scheduler_service)
-    kube_scheduler_kubeconfig_hash       = sha256(local.kube_scheduler_kubeconfig)
+    kube_scheduler_service_hash    = sha256(local.kube_scheduler_service)
+    kube_scheduler_kubeconfig_hash = sha256(local.kube_scheduler_kubeconfig)
   }
 
   connection {
@@ -1021,15 +1021,15 @@ resource "null_resource" "provision_control_plane" {
 
 locals {
   kubelet_kubeconfig = templatefile("${path.module}/templates/kubelet.kubeconfig.tmpl", {
-    ca_cert = tls_self_signed_cert.ca_cert.cert_pem,
-    server = local.api_loadbalancer_url,
+    ca_cert      = tls_self_signed_cert.ca_cert.cert_pem,
+    server       = local.api_loadbalancer_url,
     cluster_name = var.cluster_name,
-    client_cert = tls_locally_signed_cert.apiserver_kubelet_client_cert.cert_pem,
-    client_key = tls_private_key.apiserver_kubelet_client_key.private_key_pem
+    client_cert  = tls_locally_signed_cert.apiserver_kubelet_client_cert.cert_pem,
+    client_key   = tls_private_key.apiserver_kubelet_client_key.private_key_pem
   })
 
   kubelet_config = templatefile("${path.module}/templates/kubelet-config.yaml.tmpl", {
-    cluster_dns_ip = var.cluster_dns_ip,
+    cluster_dns_ip     = var.cluster_dns_ip,
     cluster_dns_domain = var.cluster_name,
   })
 }
@@ -1042,15 +1042,15 @@ resource "null_resource" "provision_kubelets" {
   ]
 
   triggers = {
-    kubernetes_version                   = var.kubernetes_version
+    kubernetes_version = var.kubernetes_version
 
-    ca_cert_hash                         = sha256(tls_self_signed_cert.ca_cert.cert_pem)
-    server_cert_hash                     = sha256(tls_locally_signed_cert.kubelet_server_cert.cert_pem)
-    server_key_hash                      = sha256(tls_private_key.kubelet_server_key.private_key_pem)
+    ca_cert_hash     = sha256(tls_self_signed_cert.ca_cert.cert_pem)
+    server_cert_hash = sha256(tls_locally_signed_cert.kubelet_server_cert.cert_pem)
+    server_key_hash  = sha256(tls_private_key.kubelet_server_key.private_key_pem)
 
-    kubelet_service_tmpl_hash            = filesha256("${path.module}/templates/kubelet.service.tmpl")
-    kubelet_kubeconfig_hash              = sha256(local.kubelet_kubeconfig)
-    kubelet_config_hash                  = sha256(local.kubelet_config)
+    kubelet_service_tmpl_hash = filesha256("${path.module}/templates/kubelet.service.tmpl")
+    kubelet_kubeconfig_hash   = sha256(local.kubelet_kubeconfig)
+    kubelet_config_hash       = sha256(local.kubelet_config)
   }
 
   connection {
@@ -1181,24 +1181,27 @@ resource "null_resource" "provision_kubelets" {
 
 locals {
   kube_proxy_spec = templatefile("${path.module}/templates/kube-system/kube-proxy.yaml.tmpl", {
-    kubernetes_version = var.kubernetes_version
-    cluster_pod_cidr = var.cluster_pod_cidr
+    kubernetes_version   = var.kubernetes_version
+    cluster_pod_cidr     = var.cluster_pod_cidr
     cluster_service_cidr = var.cluster_service_cidr
-    kubeconfig = local_file.admin_kubeconfig.content
-    cluster_dns_domain = var.cluster_dns_domain
-    cluster_dns_ip = var.cluster_dns_ip
-    coredns_version = var.coredns_version
+    kubeconfig           = local_file.admin_kubeconfig.content
+    cluster_dns_domain   = var.cluster_dns_domain
+    cluster_dns_ip       = var.cluster_dns_ip
+    coredns_version      = var.coredns_version
   })
 
   coredns_spec = templatefile("${path.module}/templates/kube-system/coredns.yaml.tmpl", {
-    cluster_dns_domain = var.cluster_dns_domain
-    cluster_dns_ip = var.cluster_dns_ip
-    coredns_version = var.coredns_version
+    cluster_dns_domain  = var.cluster_dns_domain
+    cluster_dns_ip      = var.cluster_dns_ip
+    coredns_version     = var.coredns_version
     upstream_dns_server = var.upstream_dns_server
   })
 
   flannel_spec = templatefile("${path.module}/templates/kube-system/kube-flannel.yaml.tmpl", {
-    cluster_pod_cidr = var.cluster_pod_cidr
+    cluster_pod_cidr             = var.cluster_pod_cidr
+    cni_plugins_version          = var.cni_plugins_version
+    flannel_cni_plugin_image_tag = var.flannel_cni_plugin_image_tag
+    flannel_image_tag            = var.flannel_image_tag
   })
 }
 
@@ -1229,8 +1232,8 @@ resource "null_resource" "provision_kube_system_services" {
 
   # Upload the kubeconfig for the deployment
   provisioner "file" {
-      content      = local_file.admin_kubeconfig.content
-      destination = "${var.remote_tmp_dir}/kube-proxy.kubeconfig"
+    content     = local_file.admin_kubeconfig.content
+    destination = "${var.remote_tmp_dir}/kube-proxy.kubeconfig"
   }
 
   provisioner "file" {
@@ -1244,8 +1247,8 @@ resource "null_resource" "provision_kube_system_services" {
   }
 
   provisioner "file" {
-      content     = local.flannel_spec
-      destination = "${var.remote_tmp_dir}/flannel-deployment.yaml"
+    content     = local.flannel_spec
+    destination = "${var.remote_tmp_dir}/flannel-deployment.yaml"
   }
 
   provisioner "remote-exec" {

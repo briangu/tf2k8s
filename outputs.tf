@@ -1,19 +1,19 @@
 # output info from our cluster info that we can use for etcdctl
 
 output "etcd_endpoints" {
-  value = "${join(",", formatlist("https://%s:2379", values(var.controlplane_servers)))}"
+  value = join(",", formatlist("https://%s:2379", values(var.controlplane_servers)))
 }
 
 output "etcd_cluster_state" {
-  value = "${var.etcd_cluster_state}"
+  value = var.etcd_cluster_state
 }
 
 output "etcd_cluster_name" {
-  value = "${var.cluster_name}"
+  value = var.cluster_name
 }
 
 output "etcd_cluster_servers" {
-  value = "${jsonencode(var.controlplane_servers)}"
+  value = jsonencode(var.controlplane_servers)
 }
 
 output "etcdctl_example" {
