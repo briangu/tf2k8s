@@ -21,6 +21,7 @@ cluster_pod_cidr     = "10.244.0.0/16"
 cluster_service_cidr = "10.96.0.0/12"
 cluster_dns_ip       = "10.96.0.10"
 cluster_dns_domain   = "cluster.local"
+upstream_dns_server  = "192.168.88.1"
 
 api_loadbalancer_host = "192.168.88.250"
 api_loadbalancer_port = "6444"

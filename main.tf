@@ -1194,6 +1194,7 @@ locals {
     cluster_dns_domain = var.cluster_dns_domain
     cluster_dns_ip = var.cluster_dns_ip
     coredns_version = var.coredns_version
+    upstream_dns_server = var.upstream_dns_server
   })
 
   flannel_spec = templatefile("${path.module}/templates/kube-system/kube-flannel.yaml.tmpl", {

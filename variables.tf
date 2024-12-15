@@ -47,6 +47,11 @@ variable "cluster_dns_ip" {
   description = "value for the cluster DNS"
 }
 
+variable "upstream_dns_server" {
+  type    = string
+  description = "value for the upstream DNS server"
+}
+
 variable "cluster_pod_cidr" {
     type    = string
     description = "CIDR from which to assign pod IPs"
