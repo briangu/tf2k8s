@@ -34,10 +34,10 @@ controlplane_servers = {
 }
 
 kubelet_servers = {
-"parallac-6" = "192.168.88.245",
-"parallac-7" = "192.168.88.244",
-"parallac-8" = "192.168.88.243",
-"parallac-9" = "192.168.88.242",
+    "parallac-6" = "192.168.88.245",
+    "parallac-7" = "192.168.88.244",
+    "parallac-8" = "192.168.88.243",
+    "parallac-9" = "192.168.88.242",
 }
 
 cluster_name         = "parallac"
