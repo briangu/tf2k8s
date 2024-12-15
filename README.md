@@ -10,8 +10,28 @@ Networking is the most complex part of this and it is solved with a combo of Fla
 
 # Requirements
 
-1. The server that terraform launches from must have ssh access to all targets.
-2. The ssh user on the remote target machines must have sudo access.
+## SSH access
+
+The server that terraform launches from must have ssh access to all targets.
+
+```bash
+ssh-copy-id <host>
+```
+
+2. User SUDO access
+
+The ssh user on the remote target machines must have sudo access.
+
+```
+ssh user@host
+sudo visudo
+
+# very low security but convenient solutoion
+<username>   ALL=(ALL) NOPASSWD:ALL
+```
+
+
+
 
 # Usage
 
