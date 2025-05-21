@@ -119,7 +119,7 @@ resource "tls_locally_signed_cert" "apiserver_cert" {
 
 # ===================================================================
 # CONTROLLER-MANAGER CERT (signed by ROOT CA)
-# Subject: CN=system:kube-controller-manager, O=system:masters
+# Subject: CN=system:kube-controller-manager, O=system:kube-controller-manager
 # Used by the controller manager to authenticate to the API server.
 # ===================================================================
 
@@ -132,7 +132,7 @@ resource "tls_cert_request" "controller_manager_csr" {
   private_key_pem = tls_private_key.controller_manager_key.private_key_pem
   subject {
     common_name  = "system:kube-controller-manager"
-    organization = "system:masters"
+    organization = "system:kube-controller-manager"
   }
 }
 
@@ -216,7 +216,7 @@ resource "tls_locally_signed_cert" "apiserver_kubelet_client_cert" {
 
 # ===================================================================
 # APISERVER-ETCD-CLIENT CERT (client cert signed by ETCD CA)
-# Subject: CN=apiserver-etcd-client, O=system:masters
+# Subject: CN=apiserver-etcd-client, O=etcd
 # Used by the apiserver to authenticate against etcd
 # ===================================================================
 resource "tls_private_key" "apiserver_etcd_client_key" {
@@ -228,7 +228,7 @@ resource "tls_cert_request" "apiserver_etcd_client_csr" {
   private_key_pem = tls_private_key.apiserver_etcd_client_key.private_key_pem
   subject {
     common_name  = "apiserver-etcd-client"
-    organization = "system:masters"
+    organization = "etcd"
   }
 }
 
@@ -318,7 +318,7 @@ resource "tls_locally_signed_cert" "etcd_peer_cert" {
 
 # ===================================================================
 # ETCD HEALTHCHECK-CLIENT CERT (signed by ETCD CA)
-# Subject: CN=kube-etcd-healthcheck-client, O=system:masters
+# Subject: CN=kube-etcd-healthcheck-client, O=etcd
 # Used for health checks against etcd.
 # ===================================================================
 resource "tls_private_key" "etcd_healthcheck_client_key" {
@@ -330,7 +330,7 @@ resource "tls_cert_request" "etcd_healthcheck_client_csr" {
   private_key_pem = tls_private_key.etcd_healthcheck_client_key.private_key_pem
   subject {
     common_name  = "kube-etcd-healthcheck-client"
-    organization = "system:masters"
+    organization = "etcd"
   }
 }
 
@@ -549,6 +549,7 @@ locals {
   kube_apiserver_service = templatefile("${path.module}/templates/kube-apiserver.service.tmpl", {
     kubernetes_version       = var.kubernetes_version
     service_cluster_ip_range = "10.96.0.0/12"
+    advertise_address        = var.api_loadbalancer_host
     etcd_servers = join(",", [
       for h in local.controlplane_hostnames : "https://${var.controlplane_servers[h]}:2379"
     ])
@@ -895,6 +896,7 @@ resource "null_resource" "provision_control_plane" {
       peername                   = each.key
       cluster_name               = var.cluster_name
       advertise_client_url       = "https://${var.controlplane_servers[each.key]}:2379"
+      listen_client_urls         = "https://${var.controlplane_servers[each.key]}:2379,https://127.0.0.1:2379"
       listen_peer_url            = "https://${var.controlplane_servers[each.key]}:2380"
       initial_advertise_peer_url = "https://${var.controlplane_servers[each.key]}:2380"
       cluster_state              = var.etcd_cluster_state

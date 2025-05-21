@@ -4,7 +4,7 @@ After=network.target etcd.service
 
 [Service]
 ExecStart=/usr/local/bin/kube-apiserver \
-  --advertise-address=0.0.0.0 \
+  --advertise-address=${advertise_address} \
   --allow-privileged=true \
   --authorization-mode=Node,RBAC \
   --client-ca-file=/etc/kubernetes/pki/ca.crt \
