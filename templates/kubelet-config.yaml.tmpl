@@ -10,3 +10,9 @@ tlsPrivateKeyFile: "/var/lib/kubelet/pki/kubelet.key"
 authentication:
   x509:
     clientCAFile: "/var/lib/kubernetes/pki/client-ca.crt"
+  anonymous:
+    enabled: false
+  webhook:
+    enabled: true
+authorization:
+  mode: Webhook
