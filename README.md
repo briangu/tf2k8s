@@ -26,7 +26,7 @@ The ssh user on the remote target machines must have sudo access.
 ssh user@host
 sudo visudo
 
-# very low security but convenient solutoion
+# very low security but convenient solution
 <username>   ALL=(ALL) NOPASSWD:ALL
 ```
 
@@ -70,7 +70,7 @@ api_loadbalancer_host = "192.168.88.250"
 api_loadbalancer_port = "6444"
 ```
 
-You'll need this to be `new` when you first deploy and then redeploy with `existing` immediatly after a successful build of your control plane.
+You'll need this to be `new` when you first deploy and then redeploy with `existing` immediately after a successful build of your control plane.
 
 ```
 etcd_cluster_state = "existing"
