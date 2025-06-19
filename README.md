@@ -84,10 +84,10 @@ cluster_service_cidr = "10.96.0.0/12"
 cluster_dns_ip       = "10.96.0.10"
 cluster_dns_domain   = "cluster.local"
 
-etcd_version          = "v3.5.16"
-kubernetes_version    = "v1.32.0"
-cni_plugins_version   = "v1.5.0"
-coredns_version       = "1.9.4"
+etcd_version          = "v3.6.1"
+kubernetes_version    = "v1.33.2"
+cni_plugins_version   = "v1.6.2"
+coredns_version       = "1.12.1"
 
 remote_tmp_dir = "/tmp/k8s"
 

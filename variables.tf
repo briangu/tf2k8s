@@ -18,18 +18,18 @@ variable "ssh_private_key_path" {
 
 variable "etcd_version" {
   type    = string
-  default = "v3.5.16"
+  default = "v3.6.1"
 }
 
 variable "kubernetes_version" {
   type    = string
-  default = "v1.32.0"
+  default = "v1.33.2"
 }
 
 variable "cni_plugins_version" {
   type        = string
   description = "The version of the CNI plugins to install from https://github.com/containernetworking/plugins/releases/download/"
-  default     = "v1.5.0"
+  default     = "v1.6.2"
 }
 
 variable "api_loadbalancer_host" {
@@ -98,7 +98,7 @@ variable "random_node_sleep" {
 variable "coredns_version" {
   type        = string
   description = "The version of CoreDNS to install"
-  default     = "1.9.4"
+  default     = "1.12.1"
 }
 
 variable "flannel_cni_plugin_image_tag" {
