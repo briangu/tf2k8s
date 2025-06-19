@@ -18,7 +18,7 @@ variable "ssh_private_key_path" {
 
 variable "etcd_version" {
   type    = string
-  default = "v3.5.16"
+  default = "v3.6.1"
 }
 
 variable "kubernetes_version" {
