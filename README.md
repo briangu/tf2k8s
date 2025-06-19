@@ -111,3 +111,13 @@ terraform taint 'null_resource.provision_kubelets["homelab-7"]'
 terraform apply
 ```
 
+# Quick hello-world test
+
+```bash
+kubectl apply -f hello-world.yaml
+kubectl get pods -l app=hello-world       # wait until READY 1/1
+kubectl port-forward svc/hello-world 8080:80
+# new terminal
+curl http://localhost:8080
+```
+
