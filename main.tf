@@ -17,6 +17,20 @@ locals {
 }
 
 
+resource "null_resource" "debug_route" {
+  provisioner "remote-exec" {
+    inline=["uname -a"]
+  }
+
+  connection {
+    type        = "ssh"
+    user        = var.ssh_user
+    host        = var.api_loadbalancer_host
+    private_key = file(var.ssh_private_key_path)
+  }
+}
+
+
 # ===================================================================
 # ROOT CA (MAIN CLUSTER CA)
 # ===================================================================
